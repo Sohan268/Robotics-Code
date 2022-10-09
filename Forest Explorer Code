@@ -2,11 +2,11 @@
 
 //Defining variables 
 int rmotor = 0;                     //Defining right motor port
-int lmotor = 3;                     //Defining left motot port
+int lmotor = 3;                     //Defining left motor port
 
 int rspeed = 50;                     //Defining right motor speed
 int lspeed = 45;                     // Defining left motor speed
-int delay = 15000;                     // Defining how long the robot should go foward
+int delay = 15000;                     // Defining how long the robot should go forward
 int backdelay = 200;                     //Defining how long the robot should go backwards
 
 int rturnspeed = 50;                     // Defining the right motor speed during turns
@@ -26,7 +26,7 @@ int main()
         {
             forward();                                // Move forward 
 
-            if(digital(1)==1 || digital(9) == 1)        // If either the senor connected to digital port 1 or 9 is engaged, continue to the following code
+            if(digital(1)==1 || digital(9) == 1)        // If either the sensor connected to digital port 1 or 9 is engaged, continue to the following code
             {
                 backward();                            // Move backwards
         		left_turn();                           // Turn left
@@ -46,14 +46,14 @@ int main()
 }
 
 //Define Fucntions
-void forward()                                    // Fuction for moving forward
+void forward()                                    // Function for moving forward
 {
     printf("Move Forward\n");                    // Print on screen "Move Forward"
     motor(rmotor,rspeed);				         // Right motor at 50 speed 
     motor(lmotor,lspeed);			        	// Left motor at 45 speed
 }
 
-void backward()                                // Fuction for moving backwards
+void backward()                                // Function for moving backwards
 {
     printf("Move Backward\n");                 // Print on screen "Move Backward"
     motor(rmotor,-rspeed);				      // Right motor at -50 speed
@@ -62,7 +62,7 @@ void backward()                                // Fuction for moving backwards
     ao();							     	// Turns motors off
 }
 
-void left_turn()                             // Fuction for turning left
+void left_turn()                             // Function for turning left
 {
     printf("Turn Left\n");               // Print on screen "Turn Left"
     motor(rmotor,rturnspeed);			// Right motor at 50 speed
@@ -73,7 +73,7 @@ void left_turn()                             // Fuction for turning left
     i++;                                 // Adds 1 to the counter
 }
 
-void right_turn()                        // Fuction for turning right
+void right_turn()                        // Function for turning right
 {
     printf("Turn Right\n");              // Print on screen "Turn Right"
     motor(rmotor,-rturnspeed);           // Right motor at -50 speed
