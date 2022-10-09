@@ -58,7 +58,7 @@ void backward()                                // Function for moving backwards
     printf("Move Backward\n");                 // Print on screen "Move Backward"
     motor(rmotor,-rspeed);				      // Right motor at -50 speed
     motor(lmotor,-lspeed);				      // Left motor at -45 speed
-    msleep(backdelay);					     // Do previous commads for 0.2 seconds
+    msleep(backdelay);					     // Do previous commands for 0.2 seconds
     ao();							     	// Turns motors off
 }
 
