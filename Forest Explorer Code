@@ -1,0 +1,90 @@
+#include <kipr/wombat.h>
+
+//Define Variables
+int rmotor = 0;
+int lmotor = 3;
+
+int rspeed = 50;
+int lspeed = 45; 
+int delay = 15000;
+int backdelay = 200;
+
+int rturnspeed = 50;
+int lturnspeed = 45;
+int turndelay_left = 1000;
+int turndelay_right = 2500;
+
+int i = 0;
+
+int main()
+{
+    shut_down_in(305);
+    
+    if(digital(1) == 0 && digital(9) == 0)
+    {
+        while(1)
+        {
+            forward();
+
+            if(digital(1)==1 || digital(9) == 1)
+            {
+                backward();
+        		left_turn();
+            }
+                if(i==4)
+                {
+                    backward();
+                    right_turn();
+                    
+                    forward();
+                    i=0;
+                }
+
+    	}
+    }
+    
+    return 0;							//end program
+}
+
+//Define Fucntions
+void forward()
+{
+    printf("Move Forward\n");
+    motor(rmotor,rspeed);				//right motor at 50 speed
+    motor(lmotor,lspeed);				//left motor at 45 speed
+    //msleep(delay);						//do above commands for 2 seconds
+    //ao();								//turns motor off
+    
+}
+
+void backward()
+{
+    printf("Move Backward\n");
+    motor(rmotor,-rspeed);				//right motor at -rspeed speed
+    motor(lmotor,-lspeed);				//left motor at -lspeed speed
+    msleep(backdelay);					//do above commonds for backdelay seconds
+    //ao();								//turn motors off
+}
+
+void left_turn()
+{
+    printf("Turn Left\n");    
+    motor(rmotor,rturnspeed);			//right motor at 50 speed
+    motor(lmotor,-lturnspeed);			//left motor at -45 speed
+    msleep(turndelay_left);					//do above commands for 1.4 seconds
+    ao();								//turns motor off
+    
+    i++;
+}
+
+void right_turn()
+{
+    printf("Turn Right\n");
+    motor(rmotor,-rturnspeed);
+    motor(lmotor,lturnspeed);
+    msleep(turndelay_right);
+    ao();
+    
+    i++;
+}
+
