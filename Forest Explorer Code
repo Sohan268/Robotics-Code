@@ -6,7 +6,6 @@ int lmotor = 3;                     //Defining left motor port
 
 int rspeed = 50;                     //Defining right motor speed
 int lspeed = 45;                     // Defining left motor speed
-int delay = 15000;                     // Defining how long the robot should go forward
 int backdelay = 200;                     //Defining how long the robot should go backwards
 
 int rturnspeed = 50;                     // Defining the right motor speed during turns
