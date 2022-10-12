@@ -21,7 +21,7 @@ int main()
     
     if(digital(1) == 0 && digital(9) == 0)              // If the sensor connected to digital port 1 and 9 are not engaged, continue to the following code
     {
-        while(1)                                      // Stay in this loop until a function causes it to be exited
+        while(1)                                      // Stay in this loop until a condition is met
         {
             forward();                                // Move forward 
 
