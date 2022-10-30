@@ -2,7 +2,7 @@
 
 //Define Variables
 int rmotor = 0;                   //Defining right motor port
-int lmotor = 3;                   //Defining left motot port
+int lmotor = 3;                   //Defining left motor port
 
 int rspeed = 38;                  //Defining right motor speed
 int lspeed = 40;                  //Defining left motor speed
