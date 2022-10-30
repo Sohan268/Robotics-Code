@@ -1,0 +1,95 @@
+#include <kipr/wombat.h>
+
+//Define Variables
+int rmotor = 0;                   //Defining right motor port
+int lmotor = 3;                   //Defining left motot port
+
+int rspeed = 38;                  //Defining right motor speed
+int lspeed = 40;                  //Defining left motor speed
+int rturnspeed = 50;              //Defining right motor turn speed
+int lturnspeed = 50;              //Defining left motor turn speed
+
+int turndelay = 900;             //Defining how long the robot should left turn
+int shortforward_delay = 700;    //Defining how long the robot should briefly move forward
+int turndelay_mini = 150;        //Defining how long the robot should make a small turn right or left
+
+int frontsenor = 0;             //Defining front range finder analog port
+int rsidesensor = 2;            //Defining right side range finder analog port
+int targetdistance = 2800;      //Defining the closest distance the range finder would detect
+int fardistance = 2200;         //Defining the furthest distance the robot should go before ajusting back
+
+int main()
+{
+    printf("Find the Wall\n");				           //Print "Find the Wall" on Wombat
+    while(analog(frontsenor) < targetdistance)	//While the front range finder senses values less than targetdistance (2800), do the following code in the loop
+    {
+        loop();						                      //Execute the "loop" function
+    }
+    ao();				                           		//Turn all motors off
+    mini_forward();					                  //Execute "mini_forward" function
+    left_turn();				                    	//Execute "left_turn" function
+    ao();						                         //Turn all motors off
+        
+    while(analog(frontsenor) < targetdistance)	//While the front range finder senses values less than targetdistance (2800), do the following code in the loop
+    {
+        loop();						                  //Execute "loop" function
+    }
+    ao();						                       //Turn all motors off
+
+    return 0;						                   //Turn robot off
+}
+
+//Define Fucntions
+void forward()                          //Function for moving forward
+{
+    printf("Move Forward\n");				//Print "Move Forward" on Wombat
+    motor(rmotor,rspeed);				    //Right motor at rspeed (38)
+    motor(lmotor,lspeed);				   //Left motor at lspeed (40)
+}
+
+void mini_forward()                 //Function for moving briefly forward
+{
+    printf("Move Forward Mini\n");    //Print "Move Forward Mini" on Wombat				
+    motor(rmotor,rspeed);				      //Right motor at rspeed (38)
+    motor(lmotor,lspeed);				     //Left motor at lspeed (40)
+    msleep(shortforward_delay);				//Run above commands for shortforward_delay (0.7 sec)
+}
+
+void left_turn()                     //Function for full 90 degree left turn
+{
+    printf("Turn Left\n");    				//Print "Turn Left" on Wombat
+    motor(rmotor,rturnspeed);				 //Right motor at rspeed (38)
+    motor(lmotor,-lturnspeed);				//Left motor at -lspeed (-40)
+    msleep(turndelay);					    //Run above commands for turndelay (0.9 sec)
+    ao();						               //Turn all motors off
+}
+
+void left_turn_mini()             //Function for mini left turn for ajustment
+{
+    printf("Turn Left Mini\n");				//Print "Turn Left Mini" on Wombat
+    motor(rmotor,60);					      //Right motor at 60 speed
+    msleep(turndelay_mini);				//Run above commands for turndelay_mini (0.15 sec)
+}
+
+void right_turn_mini()         //Function for mini right turn for ajustment
+{
+    printf("Turn Left Mini\n");				//Print "Turn Right Mini" on Wombat
+    motor(lmotor,60);					       //Left motor at 60 speed
+    msleep(turndelay_mini);				  //Do above commands for turndelay_mini (0.15 sec)
+}
+
+void loop()                      //Function for if statements that ensures the robot does not move too far or too close to the wall, but otherwise moves forward
+{
+
+    forward();						       //Execute "forward" function
+        
+    if(analog(rsidesensor) > targetdistance)			//Run the following code if the side sensor senses a value over targetdistance (2800)
+    {
+        left_turn_mini();				              //Execute "left_turn_mini" function
+    }
+
+    if(analog(rsidesensor) < fardistance)			     //Run the following code if side sensor senses a value under fardistance (2200)
+    {
+        right_turn_mini();				           //Execute "right_turn_mini" function
+    }
+}
