@@ -96,7 +96,7 @@ int main()
 }
 
 //Define Functions
-void red_detected()
+void red_detected()                               //Defining red_detected function
 {
     enable_servos();                               //Turn on servos
     printf("RED\n");                               //Print "RED"
@@ -107,7 +107,7 @@ void red_detected()
     disable_servos();                              //Turn off servos
 }
 
-void blue_detected()
+void blue_detected()                               //Defining blue_detected function
 {
     enable_servos();                               //Turn on servos
     printf("BLUE\n");                              //Print "BLUE"
@@ -118,7 +118,7 @@ void blue_detected()
     disable_servos();                              //Turn off servos
 }
 
-void green_detected()
+void green_detected()                              //Defining green_detected function
 {
     enable_servos();                               //Turn on servos
     printf("GREEN\n");                             //Print "GREEN"
