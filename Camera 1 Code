@@ -1,17 +1,6 @@
 #include <kipr/wombat.h>
 
 //Define Variables
-int rmotor = 0;
-int lmotor = 3;
-
-int slowspeed = 20;
-int fastspeed = 80;
-
-int frontsensor = 0;
-int bottomsensor = 5;
-
-int fronttarget = 2600;
-int bottomtarget = 2500;
 
 int servo = 0;
 int servo_delay = 300;
