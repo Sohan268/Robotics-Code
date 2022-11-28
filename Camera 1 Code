@@ -2,129 +2,129 @@
 
 //Define Variables
 
-int servo = 0;
-int servo_delay = 300;
+int servo = 0;                      //Defining the servo port
+int servo_delay = 300;              //Defining how long the servo will run for
 
-int red = 0;
-int blue = 1;
-int green = 2;
+int red = 0;                        //Defining the "red" variable 
+int blue = 1;                       //Defining the "blue" variable
+int green = 2;                      //Defining the "green" variable 
 
-int red_position_1 = 300;
-int red_position_2 = 1800;
-int green_position_1 = 600;
-int green_position_2 = 1500;
-int blue_position_1 = 900;
-int blue_position_2 = 1200;
+int red_position_1 = 300;           //Defining the first position on the servo when the robot senses red
+int red_position_2 = 1800;          //Defining the second position on the servo when the robot senses red
+int green_position_1 = 600;         //Defining the first position on the servo when the robot senses green
+int green_position_2 = 1500;        //Defining the second position on the servo when the robot senses green
+int blue_position_1 = 900;          //Defining the first position on the servo when the robot senses blue
+int blue_position_2 = 1200;         //Defining the second position on the servo when the robot senses blue
 
-int count = 0;
-int counter_red = 0;
-int counter_blue = 0;
-int counter_green = 0;
+int count = 0;                      //Setting "count" counter to 0
+int counter_red = 0;                //Setting "counter_red" counter to 0
+int counter_blue = 0;               //Setting "counter_blue" counter to 0
+int counter_green = 0;              //Setting "counter_green" counter to 0
 
 int main()
 {
-    camera_open_black();                           //turn on camera
+    camera_open_black();                           //Turn on camera
    
     while(1)
     {
-        camera_update();                           //update camera image
-        msleep(50);                                //take 0.05 seconds to update image
+        camera_update();                           //Update camera image
+        msleep(50);                                //Take 0.05 seconds to update image
 
-        if(get_object_count(red) < 1 && get_object_count(blue) < 1 && get_object_count(green) < 1)   //ensures that nothing is in front of the camera
+        if(get_object_count(red) < 1 && get_object_count(blue) < 1 && get_object_count(green) < 1)   //If less than 1 red, blue, and green object is detected, run the following code
         {
-            count++;                               //add 1 to counter
+            count++;                               //Add 1 to counter
         }
        
-        if(get_object_count(red) < 1 && get_object_count(blue) < 1 && get_object_count(green) < 1 && count == 10)   //ensures nothing is in front of the camera and counter is 10
+        if(get_object_count(red) < 1 && get_object_count(blue) < 1 && get_object_count(green) < 1 && count == 10)   //If less than 1 red, blue, and green object is detected and the counter is equal to 10, run the following code
         {
-            printf("Seeing Nothing\n");            //prints "Seeing Nothing"
-            count = 0;                             //resets counter
+            printf("Seeing Nothing\n");            //Print "Seeing Nothing"
+            count = 0;                             //Reset counter
         }
        
         //RED
-        if(get_object_count(red) > 1)             //ensures at least 1 red object is in front of the camera
+        if(get_object_count(red) > 1)             //If at least one red object is detected, run the following code
         {
-            counter_red++;                         //add 1 to counter_red
+            counter_red++;                         //Add 1 to "counter_red"
         }
        
-        if(get_object_count(red) > 1 && counter_red == 10)   //ensures at least 1 red object is in front of the camera and counter_red is 10
+        if(get_object_count(red) > 1 && counter_red == 10)   //If at least one red object is detected and "counter_red" is equal to 10, run the following code
         {
-            printf("Seeing Red\n");                //prints "Seeing Red"
-            red_detected();                        //executes red_detected function
+            printf("Seeing Red\n");                //Print "Seeing Red"
+            red_detected();                        //Run red_detected function
            
-            counter_red = 0;                       //resets counter_red
-            counter_blue = 0;                      //resets counter_blue
-            counter_green = 0;                     //resets counter_green
+            counter_red = 0;                       //Reset "counter_red"
+            counter_blue = 0;                      //Reset "counter_blue"
+            counter_green = 0;                     //Reset "counter_green"
         }
         
         //BLUE
-        if(get_object_count(blue) > 1)             //ensures at least 1 blue object is in front of the camera
+        if(get_object_count(blue) > 1)             //If at least one blue object is detected, run the following code
         {
-            counter_blue++;                        //add 1 to counter_blue
+            counter_blue++;                        //Add 1 to "counter_blue"
         }
        
-        if(get_object_count(blue) > 1 && counter_blue == 10)   //ensures at least 1 blue object is in front of the camera and counter_blue is 10
+        if(get_object_count(blue) > 1 && counter_blue == 10)   //If at least one blue object is detected and "counter_blue" is equal to 10, run the following code
         {
-            printf("Seeing Blue\n");               //prints "Seeing Blue"
-            blue_detected();                       //executes blue_detected function
+            printf("Seeing Blue\n");               //Print "Seeing Blue"
+            blue_detected();                       //Run blue_detected function
            
-            counter_red = 0;                       //resets counter_red
-            counter_blue = 0;                      //resets counter_blue
-            counter_green = 0;                     //resets counter_green
+            counter_red = 0;                       //Reset "counter_red"
+            counter_blue = 0;                      //Reset "counter_blue"
+            counter_green = 0;                     //Reset "counter_green"
         }
 
        
         //GREEN
-        if(get_object_count(green) > 1)           //ensures at least 1 green object is in front of the camera
+        if(get_object_count(green) > 1)           //If at least one green object is detected, run the following code
         {
-            counter_green++;                      //add 1 to counter_green
+            counter_green++;                      //Add 1 to "counter_green"
         }
        
-        if(get_object_count(green) > 1 && counter_green == 10)   //ensures at least 1 green object is in front of the camera and counter_green is 10
+        if(get_object_count(green) > 1 && counter_green == 10)   //If at least one green object is detected and "counter_green" is equal to 10, run the following code
         {
-            printf("Seeing Green\n");              //prints "Seeing Green"
-            green_detected();                      //executes green_detected function
+            printf("Seeing Green\n");              //Print "Seeing Green"
+            green_detected();                      //Execute green_detected function
            
-            counter_red = 0;                       //resets counter_red
-            counter_blue = 0;                      //resets counter_blue
-            counter_green = 0;                     //resets counter_green
+            counter_red = 0;                       //Reset "counter_red"
+            counter_blue = 0;                      //Reset "counter_blue"
+            counter_green = 0;                     //Reset "counter_green"
         }
         
     }
-    camera_close();                                //turn off camera
-    return 0;                                      //shut down program
+    camera_close();                                //Turn off camera
+    return 0;                                      //Shut down program
 }
 
 //Define Functions
 void red_detected()
 {
-    enable_servos();                               //turns on servos
-    printf("RED\n");                               //print "RED"
-    set_servo_position(servo, red_position_1);     //set servo position to red_position_1 (300)
-    msleep(servo_delay);                           //do above code for servo_delay (0.3) seconds
-    set_servo_position(servo, red_position_2);     //set servo position to red_position_2 (1800)
-    msleep(servo_delay);                           //do above code for servo_delay (0.3) seconds
-    disable_servos();                              //turns off servos
+    enable_servos();                               //Turn on servos
+    printf("RED\n");                               //Print "RED"
+    set_servo_position(servo, red_position_1);     //Set servo position to red_position_1 (300)
+    msleep(servo_delay);                           //Run above code for servo_delay (0.3) seconds
+    set_servo_position(servo, red_position_2);     //Set servo position to red_position_2 (1800)
+    msleep(servo_delay);                           //Run above code for servo_delay (0.3) seconds
+    disable_servos();                              //Turn off servos
 }
 
 void blue_detected()
 {
-    enable_servos();                               //turns on servos
-    printf("BLUE\n");                              //print "BLUE"
-    set_servo_position(servo, blue_position_1);    //set servo position to blue_position_1 (900)
-    msleep(servo_delay);                           //do above code for servo_delay (0.3) seconds
-    set_servo_position(servo, blue_position_2);    //set servo position to blue_position_2 (1200)
-    msleep(servo_delay);                           //do above code for servo_delay (0.3) seconds  
-    disable_servos();                              //turns off servos
+    enable_servos();                               //Turn on servos
+    printf("BLUE\n");                              //Print "BLUE"
+    set_servo_position(servo, blue_position_1);    //Set servo position to blue_position_1 (900)
+    msleep(servo_delay);                           //Run above code for servo_delay (0.3) seconds
+    set_servo_position(servo, blue_position_2);    //Set servo position to blue_position_2 (1200)
+    msleep(servo_delay);                           //Run above code for servo_delay (0.3) seconds  
+    disable_servos();                              //Turn off servos
 }
 
 void green_detected()
 {
-    enable_servos();                               //turns on servos
-    printf("GREEN\n");                             //print "GREEN"
-    set_servo_position(servo, green_position_1);   //set servo position to green_position_1 (600)
-    msleep(servo_delay);                           //do above code for servo_delay (0.3) seconds
-    set_servo_position(servo, green_position_2);   //set servo position to green_position_2 (1500)
-    msleep(servo_delay);                           //do above code for servo_delay (0.3) seconds
-    disable_servos();                              //turns off servos
+    enable_servos();                               //Turn on servos
+    printf("GREEN\n");                             //Print "GREEN"
+    set_servo_position(servo, green_position_1);   //Set servo position to green_position_1 (600)
+    msleep(servo_delay);                           //Run above code for servo_delay (0.3) seconds
+    set_servo_position(servo, green_position_2);   //Set servo position to green_position_2 (1500)
+    msleep(servo_delay);                           //Run above code for servo_delay (0.3) seconds
+    disable_servos();                              //Turn off servos
 }
