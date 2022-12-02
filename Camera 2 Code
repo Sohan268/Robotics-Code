@@ -7,71 +7,71 @@ int lmotor = 3;                            //Defining left motor port
 int speed = 20;                            //Defining "speed" variable as 20 
 int no_speed = 0;                          //Defining "no_speed" variable as 0
 
-int frontsensor = 0;                       //Defining "frontsensor" as 0
-int fronttarget = 2800;                    //Defining "fronttarget" as 2800
+int frontsensor = 0;                       //Defining range finder port
+int fronttarget = 2800;                    //Defining "fronttarget" variable as 2800
 
-int red = 0;                    
-int camera_center = 80;
-int camera_delay = 50;
+int red = 0;                               //Defining "red" variable as 0             
+int camera_center = 80;                    //Defining "camera_center" variable as 80
+int camera_delay = 50;                     //Defining "camera_delay" variable as 50
+ 
+int count = 0;                             //Defining "count" variable as 0
+int counter_red = 0;                       //Defining "counter_red" as 0
 
-int count = 0;
-int counter_red = 0;
+int obj_x;                                 //Defining "obj_x" variable
 
-int obj_x;
-
-int main()
+int main()                                         //Main function
 {
-    camera_open_black();                           //turn on camera
+    camera_open_black();                           //Turn on camera
     
-    while(analog(frontsensor) < fronttarget)       //while front senses value below fronttarget (2800)
+    while(analog(frontsensor) < fronttarget)       //While the range finder detects values below fronttarget (2800), execute the following code
     {
-        camera_update();                           //update camera image
-        msleep(camera_delay);                      //take 0.05 seconds to update image
+        camera_update();                           //Update camera image
+        msleep(camera_delay);                      //Take 0.05 seconds to update image
         
-        if(get_object_count(red) > 1)              //if red object count is greater than 1
+        if(get_object_count(red) > 1)              //If more than 1 red object is detected, run the following code
         {
-            counter_red++;                         //add 1 to counter_red
+            counter_red++;                         //Add 1 to the counter called "counter_red"
         }
         
-        if(get_object_count(red) > 1 && counter_red == 5)  //if red object count is greater than 1 and counter_red is equal to 5
+        if(get_object_count(red) > 1 && counter_red == 5)  //If more than 1 red object is detected and the counter "counter_red" is equal to 5, run the following code
         {
-            printf("Seeing Red\n");                //print “Seeing Red”
-            red_detected();                        //run red_detected function 
+            printf("Seeing Red\n");                //Print “Seeing Red”
+            red_detected();                        //Run "red_detected" function 
             
-            counter_red = 0;                       //reset counter_red
+            counter_red = 0;                       //Reset "counter_red"
         }
     }
-    camera_close();                                //turn off camera
+    camera_close();                                //Turn off camera
     return 0;                                      
 }
 
 //Define Functions
 void red_detected()
 { 
-    while(analog(frontsensor) < fronttarget)       //while front senses value below fronttarget (2800)
+    while(analog(frontsensor) < fronttarget)       //While range finder senses values below "fronttarget" (2800), run the following code
     {
-        camera_update();                           //update camera image
-        msleep(camera_delay);                      //take 0.05 seconds to update image
+        camera_update();                           //Update camera image
+        msleep(camera_delay);                      //Take 0.05 seconds to update image
 
-	      printf("obj_x = %d\n", get_object_center_x(red,0));   //print “obj_x = object location”
+	printf("obj_x = %d\n", get_object_center_x(red,0));   //Print “obj_x = object location”
         
-        if(get_object_center_x(red,0) == camera_center)   //if x-location of object equals 80
+        if(get_object_center_x(red,0) == camera_center)   //If x-location of object equals 80
         {
-            motor(lmotor,speed);                    //left motor at speed (30)
-            motor(rmotor,speed);                    //right motor at speed (30)
+            motor(lmotor,speed);                    //Move left motor at "speed" (30)
+            motor(rmotor,speed);                    //Move right motor at "speed" (30)
         }
         
-        if(get_object_center_x(red,0) < camera_center)   //if x-location of object is less than 80
+        if(get_object_center_x(red,0) < camera_center)   /If x-location of object is less than 80
         {
-            motor(lmotor,no_speed);                 //left motor at no_speed (0)
-            motor(rmotor,speed);                    //right motor at speed (30)
+            motor(lmotor,no_speed);                 //Move left motor at "no_speed" (0)
+            motor(rmotor,speed);                    //Move right motor at "speed" (30)
         }
 
-        if(get_object_center_x(red,0) > camera_center)   //if x-location of object is more than 80
+        if(get_object_center_x(red,0) > camera_center)   //If x-location of object is more than 80
         {
-            motor(lmotor,speed);                    //left motor at speed (30)
-            motor(rmotor,no_speed);                 //right motor at no_speed (0)
+            motor(lmotor,speed);                    //Move left motor at "speed" (30)
+            motor(rmotor,no_speed);                 //Move right motor at "no_speed" (0)
         }
     }
-    ao();                                           //turn robot motors off
+    ao();                                           //Turn robot motors off
 }
