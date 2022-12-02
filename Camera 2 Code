@@ -46,7 +46,7 @@ int main()                                         //Main function
 }
 
 //Define Functions
-void red_detected()
+void red_detected()                                //Defining "red_detected" function
 { 
     while(analog(frontsensor) < fronttarget)       //While range finder senses values below "fronttarget" (2800), run the following code
     {
