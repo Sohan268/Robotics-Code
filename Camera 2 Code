@@ -42,7 +42,7 @@ int main()                                         //Main function
         }
     }
     camera_close();                                //Turn off camera
-    return 0;                                      //Exit code                                    
+    return 0;                                      //Shut down code                                    
 }
 
 //Define Functions
