@@ -1,104 +1,103 @@
 #include <kipr/wombat.h>
 
 //Define Variables
-int rmotor = 0;
-int lmotor = 3;
-int forward_speed = 40;
-int backward_speed = -40;
-int slow_forward_speed = 20;
-int slow_backward_speed = -20;
+int rmotor = 0;              //Defining the port of the right motor
+int lmotor = 3;              //Defining the port of the left motor
+int forward_speed = 40;      //Defining the speed value associated with the "forward_speed" variable
+int backward_speed = -40;    //Defining the speed value associated with the "backward_speed" variable
+int slow_forward_speed = 20;  //Defining the speed value associated with the "slow_forward_speed" variable
+int slow_backward_speed = -20;   //Defining the speed value associated with the "slow_backward_speed" variable
 
 
-int back_sensor = 0;
-int line_follow_sensor = 0;
-int stop_sensor = 1;
-int back_bottom_sensor = 5;
+int back_sensor = 0;             //Defining the "back_sensor" port
+int line_follow_sensor = 0;      //Defining the "line_follow_sensor" port
+int stop_sensor = 1;           //Defining the "stop_sensor" port
+int back_bottom_sensor = 5;     //Defining the "back_bottom_sensor" port
 
-int bottomtarget = 1000;
+int bottomtarget = 1000;       //Defining the target value for the IR sensors
 
-int start_0 = 300;
-int end_0 = 1700;
+int start_0 = 300;             //Defining a value for the position of the start of servo 0
+int end_0 = 1700;               //Defining a value for the position for the end of servo 0
 
-int start_1 = 1200;
-int end_1 = 1700;
+int start_1 = 1200;             //Defining a value for the position of the start of servo 1             
+int end_1 = 1700;               //Defining a value for the position for the end of servo 1
 
-int servo_0 = 0;
-int servo_1 = 1;
-int servo_2 = 2;
+int servo_0 = 0;                //Defining servo port
+int servo_1 = 1;                //Defining servo port            
+int servo_2 = 2;               //Defining servo port
 
-int main()
+int main()                    //main function 
 {
-    wait_for_light(3);
-    shut_down_in(120.0);
+    shut_down_in(120.0);       //shuts down the robot after 120 seconds 
 
-    capture_botguy();				//capture botguy
+    capture_botguy();				//calls "capture_botguy" function to lower claw over botguy
     
-    lift_mini_servo();				//lift and hold mini servo in up position
+    lift_mini_servo();				//calls "lift_mini_servo" function to lift and hold mini servo in an up position
     
-    while(digital(back_sensor) == 0)		//back up into wall until back sensor is pushed
+    while(digital(back_sensor) == 0)		//back up into wall until the button is triggered 
     {
-        backward();
+        backward();                //calls "backward" function to move backwards
     }
-    ao();
+    ao();                         //turn all motors off
     
-    medium_lift();					//lift claw over second group of poms
+    medium_lift();					//call "medium_lift" function to lift claw over second group of poms
     
     turn_left();					//turn robot left to align with second group of poms
-    msleep(450);
-    ao();
+    msleep(450);                   //do previous function for .45 seconds
+    ao();                          //turn all motors off
     
-    open_claw();					//open claw to collect poms
+    open_claw();					//calls "open_claw" function to open claw to collect poms
     
-    drop();						//drop claw
+    drop();						//calls "drop" function to drop the claw
         
     while(analog(stop_sensor) < 3000)	//line follow along the center black line with 
     {
-        if(analog(line_follow_sensor) < bottomtarget)
+        if(analog(line_follow_sensor) < bottomtarget) // execute the following code if the IR sensor sees white 
         {
-            right_turn_mini();
+            right_turn_mini();              //calls "right_turn_mini" function to ajust right
         }
 
-    	if(analog(line_follow_sensor) > bottomtarget)
+    	if(analog(line_follow_sensor) > bottomtarget) // execute the following code if the IR sensor sees black
     	{
-        	left_turn_mini();
+        	left_turn_mini();             //calls "left_turn_mini" function to ajust left
     	}
     }
-    ao();
+    ao();                              //turn all motos off
     
-    forward();					//bypass tape in base
-    msleep(1000);
-    ao();
+    forward();					//calls "forward" fucntion to more forward to bypass black tape in base
+    msleep(1000);               //execute the following code for 1 second
+    ao();                       //turn all motors off
     
-    while(analog(stop_sensor) < 3000)	//continue line follow aling the center black line
+    while(analog(stop_sensor) < 3000)	//continue line follow along the center black line until the stop sensor on the claw is triggered
     {
-        if(analog(line_follow_sensor) < bottomtarget)
+        if(analog(line_follow_sensor) < bottomtarget)        // execute the following code if the IR sensor sees white 
         {
-            right_turn_mini();
-        }
+            right_turn_mini();                    //calls "right_turn_mini" function to ajust right
+        } 
 
-    	if(analog(line_follow_sensor) > bottomtarget)
+    	if(analog(line_follow_sensor) > bottomtarget)         // execute the following code if the IR sensor sees black
     	{
-        	left_turn_mini();
+        	left_turn_mini();                      //calls "left_turn_mini" function to ajust left
     	}
     }
-    ao();
+    ao();                                     // turn all motors off
     
-    backward();					//back up after stopping
-    msleep(150);
-    ao();
+    backward();					//calls "backward" function to back up after stopping
+    msleep(150);                //execute the previous code for .150 seconds
+    ao();                       //turn all motors off
         
-    close_claw();					//close claw to collect poms
+    close_claw();					//calls the "close_claw" function to close claw to collect poms
 
-    transport_lift();				//lift claw over transporter
+    transport_lift();				//calls the "transport_lift function" to lift claw over transporter
         
-    msleep(1000);					//wait 1 second
+    msleep(1000);					//pause the robot for 1 second
 
     
-    while(analog(stop_sensor) > 1000)	//sharp left turn until stop_sensor senses transporter 
+    while(analog(stop_sensor) > 1000)	//execute the following code until the stop_sensor senses transporter 
     {
-        left_turn_mini_sharp();
+        left_turn_mini_sharp();        //calls the "left_turn_mini_sharp"
     }
-    ao();
+    ao();                             //turns all motors off
 
     forward();					//move forward to approach transporter
     msleep(1250);
