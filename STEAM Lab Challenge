@@ -99,85 +99,85 @@ int main()                    //main function
     }
     ao();                             //turns all motors off
 
-    forward();					//move forward to approach transporter
-    msleep(1250);
-    ao();
+    forward();					//calls "forward" function to move forward to approach transporter
+    msleep(1250);               // execuate the previous code for 1.250 seconds
+    ao();                       //turn all motors off
         
-    open_claw();					//open claw to drop poms into transporter
+    open_claw();					//calls the "open_claw function" to open claw to drop poms into transporter
     
     msleep(1000);					//wait 1 second
     
-    shake();						//shake any remaining poms into transporter
+    shake();						//calls the "shake" function to shake any remaining poms into transporter
         
-    while(analog(5) < 2500)			//quickly back up until [sensor] senses center black line
+    while(analog(5) < 2500)			//while the IR sensor in port 5 sees white, execute the following code
     {
-        fast_backward();
+        fast_backward();           // calls the "fast_backward" function 
     }
-    ao();
+    ao();                          //turn all motors off                    
 
-    forward();					//move forward
-    msleep(400);
-    ao();
+    forward();					//calls "forward" function to move forward
+    msleep(400);                //executes the previous function for .400 seconds
+    ao();                        //turn all motors off
+     
+    turn_right();					//calls "turn_right" function to turn right to better align with center black line
+    msleep(800);                   //executes the previous function for .800 seconds
+    ao();                         //turn all motors off
     
-    turn_right();					//turn right to better align with center black line
-    msleep(800);
-    ao();
-    
-    while(analog(2) < 3500)			//line follow along center black line 
+    while(analog(2) < 3500)			//while the IR sensor in port 2 senses a values less than 3500, execute the following code
     {
-        if(analog(5) < bottomtarget)
+        if(analog(5) < bottomtarget)   //if the IR sensor sees white, execute the following code
         {
-            right_turn_mini_2();
+            right_turn_mini_2();      //calls "right_turn_mini_2" function to ajust 
         }
 
-    	if(analog(5) > bottomtarget)
+    	if(analog(5) > bottomtarget)   //if the IR sensor sees black, execute the following code
     	{
-        	left_turn_mini_2();
+        	left_turn_mini_2();      //calls "left_turn_mini_2" function to ajust 
     	}
     }
-    ao();
+    ao();                         //turn all motors off
     
-    close_claw();					//close claw
+    close_claw();					//calls "close_claw" function to close claw
 
-    lift_mini_servo();				//lift and hold up mini servo
+    lift_mini_servo();				//calls "life_mini_servo" function to lift and hold up mini servo
     
-    msleep(500);					//wait 0.5 seconds
+    msleep(500);					//execute previous function for 0.5 seconds
     
-    forward();					//move forward
-    msleep(250);
-    ao();
+    forward();					//calls "forward" function to move forward
+    msleep(250);                 //execute previous function for 0.250 seconds
+    ao();                         //turn all motors off
     
-    slow_turn_right();				//slowly turn right to bypass black line of the farming zone
-    msleep(4000);
-    ao();
+    slow_turn_right();				//calls "slow_turn_right" function to slowly turn right to bypass black line of the farming zone
+    msleep(4000);                //execute previous function for 4 seconds
+    ao();                        //turn all motors off
     
-    while(analog(2) < 3500)			//continue slow turn right until [sensor] senses center black line
+    while(analog(2) < 3500)			//continue slow turn right until port 2 IR sensor, senses center black line
     {
-        slow_turn_right();
+        slow_turn_right();        //calls "slow_turn_right" function to ajust
     }
-    ao();
+    ao();                          //turn all motors off
     
-    slow_turn_right();				//continue slow right turn to align with transporter
-    msleep(1000);
-    ao();
+    slow_turn_right();				//calls "slow_turn_right" function to continue slow right turn to align with transporter
+    msleep(1000);                    //execute previous function for 1 second
+    ao();                           //turn all motors off
             
-    while(digital(back_sensor) == 0)		//move quickly backwards until back_sensor is pressed
+    while(digital(back_sensor) == 0)		//move quickly backwards until "back_sensor" is pressed
     {
-        fast_backward();
+        fast_backward();             //calls "fast_backward" function to more back into the transporter
     }
-    ao();
+    ao();                            //turn all motors off
+     
+    msleep(750);					//robot waits 0.75 seconds
     
-    msleep(750);					//wait 0.75 seconds
+    lift();						//calls "lift" function to lift claw to upright position
     
-    lift();						//lift claw to upright position
+    msleep(750);					//robot waits 0.75 seconds
     
-    msleep(750);					//wait 0.75 seconds
-    
-    drop_mini_servo();				//drop and hold mini servo
+    drop_mini_servo();				//calls "drop_mini_servo" function to drop and hold mini servo
                 
-    fast_forward();				//move forward for 6.25 seconds, leaving transporter in farming zone
-    msleep(6250);					//and botguy in the shelter
-    ao();
+    fast_forward();				//calls "fast_forward" function to move forward, leaving transporter in farming zone and botguy in shealter
+    msleep(5500);					//execute previous function for 5.5 seconds
+    ao();                     //turn all motors off
         
     return 0;					//end program
 }
