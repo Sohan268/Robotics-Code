@@ -184,62 +184,62 @@ int main()                    //main function
 
 void forward()
 {
-    motor(lmotor, forward_speed);
-    motor(rmotor, forward_speed); 
+    motor(lmotor, forward_speed);        //left motor runs at "forward_speed"
+    motor(rmotor, forward_speed);        //right motor runs at "forward_speed"
 }
 
 void backward()
 {
-    motor(lmotor, backward_speed);
-    motor(rmotor, backward_speed); 
+    motor(lmotor, backward_speed);      //left motor runs at "backward_speed"
+    motor(rmotor, backward_speed);      //right motor runs at "backward_speed"
 }
 
 void slow_forward()
 {
-    motor(lmotor, slow_forward_speed);
-    motor(rmotor, slow_forward_speed);
+    motor(lmotor, slow_forward_speed);      //left motor runs at "slow_forward_speed"
+    motor(rmotor, slow_forward_speed);      //right motor runs at "slow_forward_speed"
 }
 
 void slow_backward()
 {
-    motor(lmotor, slow_backward_speed);
-    motor(rmotor, slow_backward_speed); 
+    motor(lmotor, slow_backward_speed);      //left motor runs at "slow_backward_speed"      
+    motor(rmotor, slow_backward_speed);      //right motor runs at "slow_backward_speed"
 }
 
 void fast_forward()
 {
-    motor(lmotor, 60);
-    motor(rmotor, 65); 
+    motor(lmotor, 60);               //left motor runs at 60 speed
+    motor(rmotor, 65);               //right motor runs at 65 speed
 }
 
 void fast_backward()
 {
-    motor(lmotor, -55);
-    motor(rmotor, -95); 
+    motor(lmotor, -55);          //left motor runs at -55 speed
+    motor(rmotor, -95);            //right motor runs at -95 speed
 }
           
 void turn_left()
 {
-    motor(lmotor, backward_speed);
-    motor(rmotor, forward_speed);
+    motor(lmotor, backward_speed);       //left motor runs at "backward_speed"
+    motor(rmotor, forward_speed);         //right motor runs at "forward_speed"
 }
 
 void turn_right()
 {
-    motor(lmotor, forward_speed);
-    motor(rmotor, backward_speed);
-}
+    motor(lmotor, forward_speed);          //left motor at "forward_speed"
+    motor(rmotor, backward_speed);         //right motor at "backwards_speed"
+} 
 
 void slow_turn_left()
 {
-    motor(lmotor, slow_backward_speed);
-    motor(rmotor, slow_forward_speed);
+    motor(lmotor, slow_backward_speed);        //left motor at "slow_backward_speed"
+    motor(rmotor, slow_forward_speed);        //right motor at "slow_forward_speed"
 }
 
 void slow_turn_right()
 {
-    motor(lmotor, slow_forward_speed);
-    motor(rmotor, slow_backward_speed);
+    motor(lmotor, slow_forward_speed);         //left motor at "slow_forward_speed"
+    motor(rmotor, slow_backward_speed);         //right motor at "slow_backward_speed"
 }
 
 void right_turn_mini()
